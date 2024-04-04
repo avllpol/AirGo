@@ -94,8 +94,12 @@
             >
               <div v-if="shopStoreData.currentGoods.value.goods_type === constantStore.GOODS_TYPE_SUBSCRIBE">
                 <el-descriptions-item :label="$t('message.adminShop.Goods.total_bandwidth')">{{ shopStoreData.currentGoods.value.total_bandwidth }}GB</el-descriptions-item>
-                <el-descriptions-item :label="$t('message.adminShop.Goods.node_connector')">{{ shopStoreData.currentGoods.value.node_connector }}</el-descriptions-item>
-                <el-descriptions-item :label="$t('message.adminShop.Goods.node_speed_limit')">{{ shopStoreData.currentGoods.value.node_speed_limit }}</el-descriptions-item>
+                <el-descriptions-item :label="$t('message.adminShop.Goods.node_connector')">
+  {{ shopStoreData.currentGoods.value.node_connector > 5 ? '合理限制' : shopStoreData.currentGoods.value.node_connector }}
+</el-descriptions-item>
+                <el-descriptions-item :label="$t('message.adminShop.Goods.node_speed_limit')">
+  {{ shopStoreData.currentGoods.value.node_speed_limit <= 0 ? '不限速' : shopStoreData.currentGoods.value.node_speed_limit }}
+</el-descriptions-item>
               </div>
               <div v-if="shopStoreData.currentGoods.value.goods_type === constantStore.GOODS_TYPE_RECHARGE">
                 <el-descriptions-item :label="$t('message.adminShop.Goods.recharge_amount')">{{ shopStoreData.currentGoods.value.recharge_amount }}</el-descriptions-item>

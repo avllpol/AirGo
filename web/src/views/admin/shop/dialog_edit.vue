@@ -80,6 +80,7 @@
       <!--      发货参数结束-->
       <!--      订阅商品开始-->
       <div v-if="shopStoreData.currentGoods.value.goods_type === constantStore.GOODS_TYPE_SUBSCRIBE">
+        <!-- 总流量 -->
         <el-form-item :label="$t('message.adminShop.Goods.total_bandwidth')">
           <el-col :span="4">
             <el-input-number v-model.number="shopStoreData.currentGoods.value.total_bandwidth" />
@@ -89,6 +90,18 @@
           </el-col>
           <el-col :span="18">
             <span class="text-gray-500">GB</span>
+          </el-col>
+        </el-form-item>
+        <!-- 客户端连接数 -->
+        <el-form-item :label="$t('message.adminShop.Goods.node_connector')">
+          <el-col :span="4">
+            <el-input-number v-model.number="shopStoreData.currentGoods.value.node_connector" />
+          </el-col>
+          <el-col :span="2" style="text-align: center">
+            <span>-</span>
+          </el-col>
+          <el-col :span="18">
+            <span class="text-gray-500">个</span>
           </el-col>
         </el-form-item>
         <el-form-item :label="$t('message.adminShop.Goods.nodes')">

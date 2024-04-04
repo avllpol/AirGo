@@ -80,11 +80,11 @@
         </div>
       </div>
       <div v-for="(v,k) in state.subType" :key="k">
-        <el-row style="margin-top:10px;display: flex; justify-content: space-between; align-items: center;">
-          <el-col :span="16">
-            <el-button size="large" color="blue" style="width: 100%" @click="copyLink(v)">{{ v }} {{$t('message.home.subscription')}}</el-button>
+        <el-row style="margin-top:10px; display: flex; justify-content: space-between; align-items: center;">
+          <el-col :span="12">
+            <el-button size="large" type="primary" style="width: 100%" @click="copyLink(v)">{{ v }} {{$t('message.home.subscription')}}</el-button>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="11">
             <el-button size="large" @click="showQR(v)">
               <el-icon>
                 <FullScreen />
@@ -162,7 +162,7 @@ const DialogCustomerServiceDetailsRef = ref();
 const state = reactive({
   isShowSubDialog: false,
   isShowPushDialog: false,
-  subType: ["NekoBox", "v2rayNG", "v2rayN", "Shadowrocket", "Clash", "Surge", "Quantumult", "V2rayU"],
+  subType: ["Shadowrocket", "Clash", "v2rayNG", "v2rayN", "V2rayU", "NekoBox"],
   currentSubUUID: "",
   QRcode: null,
   subUrlPre:[''],
