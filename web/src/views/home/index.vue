@@ -8,6 +8,21 @@
     </div>
 
     <el-row :gutter="15" class="home-card-one mb15">
+      <el-col :span="24">
+        <div class="home-card-item">
+          <el-card>
+            <template #header>
+              <div class="card-header-left">
+                <el-text>{{articleStoreData.articleID2.value.title}}</el-text>
+              </div>
+            </template>
+
+            <div class="box-card">
+              <v-md-preview :text="articleStoreData.articleID2.value.content"></v-md-preview>
+            </div>
+          </el-card>
+        </div>
+      </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12"
               v-for="(v, k) in customerServiceStoreData.customerServiceList.value" :key="k">
         <div class="home-card-item">
@@ -152,6 +167,7 @@ const Purchase = defineAsyncComponent(() => import("/@/views/shop/purchase.vue")
 const PurchaseRef = ref();
 const {t} = useI18n()
 const articleStore = useArticleStore()
+const articleStoreData = storeToRefs(articleStore)
 const DefaultDialog = defineAsyncComponent( () => import('/@/views/default/defaultDialog.vue'));
 const DefaultDialogRef = ref();
 
@@ -166,7 +182,7 @@ const state = reactive({
   currentSubUUID: "",
   QRcode: null,
   subUrlPre:[''],
-  currentSubUrlPre:'',
+  currentSubUrlPre:''
 });
 const customColors = [
   { color: "#9af56c", percentage: 20 },
@@ -244,11 +260,16 @@ const showQR = (subType: string) => {
 const openDialogCustomerServiceDetails = () => {
   DialogCustomerServiceDetailsRef.value.openDialog();
 };
+
 const defaultArticle=()=>{
   articleStore.getDefaultArticles().then(()=>{
-    setTimeout(()=>{
-      DefaultDialogRef.value.openDialog()
-    },2000)
+    for (const item of articleStore.defaultArticles) {
+      if (item.id == 2) {
+          articleStoreData.articleID2.value = item
+          articleStore.removeArticlesCache()
+        break;
+      }
+    }
   })
 }
 

@@ -2,16 +2,17 @@ package router
 
 import (
 	"crypto/tls"
+	"io"
+	"os"
+	"strconv"
+	"sync"
+
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/ppoonk/AirGo/constant"
 	"github.com/ppoonk/AirGo/global"
 	"github.com/ppoonk/AirGo/middleware"
 	"github.com/ppoonk/AirGo/web"
-	"io"
-	"os"
-	"strconv"
-	"sync"
 )
 
 type GinServer struct {
@@ -23,8 +24,14 @@ var Server = &GinServer{
 }
 
 func (g *GinServer) InitRouter() {
-	gin.SetMode(gin.ReleaseMode)   //ReleaseMode TestMode DebugMode
-	gin.DefaultWriter = io.Discard //关闭控制台输出
+	gin.SetMode(gin.ReleaseMode)
+	var writer io.Writer
+	if global.Config.SystemParams.Mode == "dev" {
+		writer = os.Stdout
+	} else {
+		writer = io.Discard //关闭控制台输出
+	}
+	gin.DefaultWriter = writer
 	g.Router = gin.Default()
 	// targetPtah=web 是embed和web文件夹的相对路径
 	g.Router.Use(middleware.Serve("/", middleware.EmbedFolder(web.Static, "web")))

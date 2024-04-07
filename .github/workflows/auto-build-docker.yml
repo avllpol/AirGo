@@ -1,5 +1,7 @@
 name: Auto build docker
 on:
+  workflow_dispatch:
+
   release:
     types: [created]
 

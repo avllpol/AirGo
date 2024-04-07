@@ -18,6 +18,7 @@ export const useArticleStore = defineStore("articleStore", {
             introduction: '',
             content: '',
         } as Article,
+        articleID2: {} as Article,
         defaultArticles:[] as Article[],
     }),
     actions: {
@@ -38,6 +39,11 @@ export const useArticleStore = defineStore("articleStore", {
                 Session.set('defaultArticles',temp)
             }
             return
+        },
+        removeArticlesCache() {
+            if (Session.get('defaultArticles')) {
+                Session.remove('defaultArticles')
+            }
         }
     }
 })

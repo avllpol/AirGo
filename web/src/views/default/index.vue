@@ -1,7 +1,7 @@
 <template>
   <div class="text">
     <div v-html="state.indexHTML"></div>
-    <DefaultDialog ref="DefaultDialogRef"></DefaultDialog>
+    <!-- <DefaultDialog ref="DefaultDialogRef"></DefaultDialog> -->
   </div>
 </template>
 
@@ -10,8 +10,8 @@ import { useArticleStore } from "/@/stores/user_logic/articleStore";
 import { storeToRefs } from "pinia";
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref } from "vue";
 import { NextLoading } from "/@/utils/loading";
-const DefaultDialog = defineAsyncComponent( () => import('/@/views/default/defaultDialog.vue'));
-const DefaultDialogRef = ref()
+// const DefaultDialog = defineAsyncComponent( () => import('/@/views/default/defaultDialog.vue'));
+// const DefaultDialogRef = ref()
 
 
 const state = reactive({
@@ -29,9 +29,9 @@ onMounted(()=>{
     if (articleStoreData.defaultArticles.value.length >=1){
       state.indexHTML = articleStoreData.defaultArticles.value[0].content
     }
-    setTimeout(()=>{
-      DefaultDialogRef.value.openDialog()
-    },2000)
+    // setTimeout(()=>{
+    //   DefaultDialogRef.value.openDialog()
+    // },2000)
   })
 });
 
