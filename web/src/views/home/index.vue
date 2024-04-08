@@ -65,7 +65,7 @@
               </el-descriptions-item>
             </el-descriptions>
             <div style="margin-top: 15px">
-              <el-button size="small" style="margin-bottom: 10px" type="primary" @click="openDialogCustomerServiceDetails">{{$t('message.home.button_details')}}</el-button>
+              <el-button size="small" style="margin-bottom: 10px" type="primary" @click="openDialogCustomerServiceDetails(v.id)">{{$t('message.home.button_details')}}</el-button>
               <el-button size="small" style="margin-bottom: 10px" type="primary" @click="renew(v)">{{$t('message.home.button_renew')}}</el-button>
               <el-button size="small" style="margin-bottom: 10px" type="primary" @click="openPushDialog">{{$t('message.home.button_push')}}</el-button>
               <el-button size="small" style="margin-bottom: 10px" type="primary" @click="resetSubscribeUUID(v)">{{$t('message.home.button_resetSub')}}</el-button>
@@ -257,8 +257,8 @@ const showQR = (subType: string) => {
     colorLight: "#ffffff"
   });
 };
-const openDialogCustomerServiceDetails = () => {
-  DialogCustomerServiceDetailsRef.value.openDialog();
+const openDialogCustomerServiceDetails = (customerServiceID:number) => {
+  DialogCustomerServiceDetailsRef.value.openDialog(customerServiceID);
 };
 
 const defaultArticle=()=>{

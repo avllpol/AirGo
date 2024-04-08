@@ -3,15 +3,16 @@ package user_logic
 import (
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/ppoonk/AirGo/constant"
 	"github.com/ppoonk/AirGo/global"
 	"github.com/ppoonk/AirGo/model"
 	"github.com/ppoonk/AirGo/service/admin_logic"
 	"github.com/ppoonk/AirGo/service/common_logic"
 	"gorm.io/gorm"
-	"strconv"
-	"strings"
-	"time"
 )
 
 type Order struct {
@@ -147,7 +148,7 @@ func (o *Order) PreCheckOrder(orderReq *model.Order) error {
 			return errors.New(constant.ERROR_CUSTOMER_SERVICE_NO_RENEWAL)
 		}
 		// 检查关联的商品
-		goods, err := shopService.FirstGoods(&model.Goods{ID: orderReq.GoodsID})
+		goods, err := shopService.FirstGoods(&model.Goods{ID: cs.GoodsID})
 		if err != nil {
 			return err
 		}
