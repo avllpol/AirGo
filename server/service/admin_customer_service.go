@@ -76,10 +76,15 @@ func (c *AdminCustomerService) UpdateCustomerServiceTrafficUsed(customerServiceA
 		query[item].UsedDown = query[item].UsedDown + (*customerServiceArr)[item].UsedDown
 	}
 	return global.DB.Transaction(func(tx *gorm.DB) error {
-		return tx.Clauses(clause.OnConflict{
-			Columns:   []clause.Column{{Name: "id"}},
-			DoUpdates: clause.AssignmentColumns([]string{"used_up", "used_down"}),
-		}).Create(&query).Error
+		for _, service := range query {
+			if err := tx.Model(&model.CustomerService{}).Where("id = ?", service.ID).Updates(map[string]interface{}{
+				"used_up":   service.UsedUp,
+				"used_down": service.UsedDown,
+			}).Error; err != nil {
+				return err
+			}
+		}
+		return nil
 	})
 }
 
