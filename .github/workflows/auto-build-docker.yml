@@ -1,5 +1,7 @@
 name: Auto build docker
 on:
+  workflow_dispatch:
+  
   release:
     types: [created]
 
@@ -58,7 +60,7 @@ jobs:
           platforms: linux/arm,linux/arm64,linux/amd64
           push: true
           tags: |
-            ppoiuty/airgo:${{ steps.get_version.outputs.VERSION }}
-            ppoiuty/airgo:latest
+            avllpol/airgo:${{ steps.get_version.outputs.VERSION }}
+            avllpol/airgo:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
