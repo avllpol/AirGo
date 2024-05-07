@@ -92,7 +92,7 @@ onMounted(() => {
 .login-container {
   height: 100%;
   background: var(--el-color-white);
-  background-image: url("../../assets/bgc/login-body.svg");
+  // background-image: url("../../assets/bgc/login-body.svg");
   /* 背景图垂直、水平均居中 */
   //background-position: center center;
   //background-position: top 300px right 0px;
@@ -150,7 +150,7 @@ onMounted(() => {
 
     .login-right-warp {
       border: 1px solid var(--el-color-primary-light-3); //表单边框
-      border-radius: 3px;
+      border-radius: 20px;
       width: 100%;
       //height: 500px; //表单高度
       position: relative;

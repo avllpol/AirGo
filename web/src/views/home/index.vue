@@ -19,8 +19,11 @@
               <el-text size="large" style="margin-left: 10px;">{{ $t("message.ticket.total_ticket") }} : {{ ticketStoreData.userTicketList.value.total }}</el-text>
               
             </el-card>
-            <!--
-            <el-text size="large" style="margin-left:0.2em ;">自定义内容自定义内容自定义内容自定义内容自定义内容自定义内容自定义内容</el-text>-->
+            
+            <!-- <el-text size="large" style="margin-left:0.2em ;">自定义内容自定义内容自定义内容自定义内容自定义内容自定义内容自定义内容</el-text> -->
+            <el-text size="large" style="margin-left:0.2em ;">
+              <v-md-preview :text="articleStoreData.articleID2.value.content"></v-md-preview>
+            </el-text>
           </el-col>
         </el-row>
         </div>
@@ -194,6 +197,7 @@ import logo_surge from "/@/assets/img/logo-surge.png"
 import logo_nekobox from "/@/assets/img/logo-nekobox.jpeg"
 
 const articleStore = useArticleStore()
+const articleStoreData = storeToRefs(articleStore)
 const constantStore = useConstantStore()
 const shopStore = useShopStore()
 const shopStoreData = storeToRefs(shopStore)
@@ -225,13 +229,14 @@ const state = reactive({
   isShowSubDialog: false,
   isShowPushDialog: false,
   isShowQRDialog: false,
-  subType: ["NekoBox", "v2rayNG", "v2rayN", "Shadowrocket", "Clash", "Surge", "Quantumult", "V2rayU"],
+  // subType: ["NekoBox", "v2rayNG", "v2rayN", "Shadowrocket", "Clash", "Surge", "Quantumult", "V2rayU"],
+  subType: ["NekoBox", "v2rayNG", "v2rayN", "Shadowrocket", "Clash", "Quantumult", "V2rayU"],
   subClient: [
     {name:"Shadowrocket",logo:logo_shadowrocket},
-    {name:"ClashX",logo:logo_clashx},
+    // {name:"ClashX",logo:logo_clashx},
     {name:"Clash Verge",logo:logo_clash_verge},
     {name:"Clash Meta",logo:logo_clash_meta},
-    {name:"Surge",logo:logo_surge},
+    // {name:"Surge",logo:logo_surge},
     {name:"NekoBox",logo:logo_nekobox},
   ],
   currentSubUUID: "",
@@ -380,14 +385,18 @@ const insert=(subType?: string)=>{
 const openDialogCustomerServiceDetails = (customerServiceID:number) => {
   DialogCustomerServiceDetailsRef.value.openDialog(customerServiceID);
 };
+
 const defaultArticle=()=>{
   articleStore.getDefaultArticles().then(()=>{
-    setTimeout(()=>{
-      DefaultDialogRef.value.openDialog()
-    },10000)
+    for (const item of articleStore.defaultArticles) {
+      if (item.id == 2) {
+          articleStoreData.articleID2.value = item
+          articleStore.removeArticlesCache()
+        break;
+      }
+    }
   })
 }
-
 
 onMounted(() => {
   getCustomerServiceList();
