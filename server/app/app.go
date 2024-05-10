@@ -2,6 +2,11 @@ package app
 
 import (
 	"fmt"
+	"io"
+	"os"
+	"path"
+	"time"
+
 	"github.com/fsnotify/fsnotify"
 	"github.com/panjf2000/ants/v2"
 	"github.com/ppoonk/AirGo/global"
@@ -14,10 +19,6 @@ import (
 	"github.com/songzhibin97/gkit/cache/local_cache"
 	"github.com/spf13/viper"
 	"github.com/yudeguang/ratelimit"
-	"io"
-	"os"
-	"path"
-	"time"
 )
 
 type App struct {
@@ -134,6 +135,7 @@ func (a *App) InitTasks() {
 }
 
 func (a *App) Start() {
+	service.CrontabSvc.Start()
 	a.router.Start()
 }
 
