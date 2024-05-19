@@ -39,7 +39,7 @@ func (c *AdminCustomerService) DeleteCustomerService(csParams *model.CustomerSer
 func (c *AdminCustomerService) SubExpirationCheck() error {
 	return global.DB.Transaction(func(tx *gorm.DB) error {
 		//服务有效性
-		err := tx.Exec("UPDATE customer_service SET service_status = 0 WHERE service_end_at < ?", time.Now()).Error
+		err := tx.Exec("UPDATE customer_service SET service_status = 0, sub_status = 0 WHERE service_end_at < ?", time.Now()).Error
 		if err != nil {
 			return err
 		}
