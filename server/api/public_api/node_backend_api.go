@@ -145,7 +145,7 @@ func AGGetUserlist(ctx *gin.Context) {
 	var users []model.AGUserInfo //返回给节点服务器的数据，其中的 customer_server id 对应 Xrayr 或 v2bx 中的 uid; 处理上报流量时也要注意对应关系
 	err = global.DB.
 		Model(&model.CustomerService{}).
-		Where("goods_id in (?) and service_status and sub_status = ?", goodsArr, true, true).
+		Where("goods_id in (?) and service_status = ? and sub_status = ?", goodsArr, true, true).
 		Select("id, sub_uuid AS uuid, user_name, node_connector, node_speed_limit").
 		Find(&users).Error
 	if err != nil {
